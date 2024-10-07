@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select</title>
+    <!--link rel="stylesheet" href="./select.css"-->
+</head>
+
+<body>
+    <div data-element="test"></div>
+    <button data-element="btn">New</button>
+    <script>
+        const VIEW_MODE = ['product', 'dev'];
+        const MODE_ID = 1;
+        if (VIEW_MODE[MODE_ID] == 'product') {
+            var script = document.createElement('script');
+            script.src = './build/select.min.js';
+            document.body.appendChild(script)
+        } else {
+            var css = document.createElement('link');
+            css.href = './select.css';
+            css.rel = 'stylesheet';
+            css.type = 'text/css';
+            document.body.appendChild(css);
+            var script = document.createElement('script');
+            script.src = './select.js'
+            script.type = 'module';
+            document.body.appendChild(script)
+        }
+        window.onload = () => {
+            var select = S.install('[data-element="test"]', [
+                {
+                    content: "Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1Option 1",
+                    value: 1,
+                    disabled: true,
+                    selected: true
+                }, {
+                    type: "separator"
+                }, {
+                    content: "Option 2",
+                    value: 2,
+                    action: (e) => {
+                        console.log(`Trigger action, Value: ${e.value}, Content: ${e.content}`);
+                    }
+                }
+            ]);
+            select.on("change", (e) => {
+                console.log(`Change, Value: ${e.value}, Content: ${e.content}`);
+            })
+
+            var btn_list = S.install(document.querySelector('[data-element="btn"]'), [
+                {
+                    content: '新建',
+                    value: 'new'
+                }, {
+                    content: '加入',
+                    value: 'join',
+                    action: (e) => {
+                        console.log(`Trigger action, Value: ${e.value}, Content: ${e.content}`);
+                    }
+                }
+            ], {
+                trigger: '[data-element="btn"]',
+                theme: 'light'
+            });
+            btn_list.on("change", (e) => {
+                console.log(`Change, Value: ${e.value}, Content: ${e.content}`);
+            })
+            // S.install('[data-select="theme"]');
+        }
+    </script>
+    <!--script src="./select.js" defer></script-->
+</body>
+
+</html>
